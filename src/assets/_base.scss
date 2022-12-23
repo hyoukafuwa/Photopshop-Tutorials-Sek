@@ -1,0 +1,24 @@
+
+// variables
+$hover-blue: #1e40af;
+$blue: #2563eb;
+$grey: #cbd5e1;
+
+// mixins
+@mixin justify-align($justify: center, $align: center) {
+  justify-content: $justify;
+  align-items: $align;
+}
+
+@mixin box-shadow {
+  // i copied this box shadow setting from the tailwind docs (box-shadow-md)
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+@mixin transition($el, $duration: 300ms) {
+  transition: $el $duration ease;
+  -webkit-transition: $el $duration ease;
+  -moz-transition: $el $duration ease;
+  -ms-transition: $el $duration ease;
+  -o-transition: $el $duration ease;
+}
