@@ -3,8 +3,17 @@
 $hover-blue: #1e40af;
 $blue: #2563eb;
 $grey: #cbd5e1;
+$font: 'Playfair Display', serif;
 
 // mixins
+@mixin remove-button-styling() {
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
 @mixin justify-align($justify: center, $align: center) {
   justify-content: $justify;
   align-items: $align;

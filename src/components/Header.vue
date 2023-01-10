@@ -33,16 +33,25 @@ import { RouterLink } from 'vue-router';
   &__title {
     font-weight: bold;
     font-size: 1.2rem;
+
+    a {
+      text-decoration: none;
+      color: black;
+    }
   }
 
   &__nav {
     width: 50px;
     display: flex;
-    justify-content: space-around;
+    @include base.justify-align(space-between, center);
 
     // target all elements in nav
     & > * {
       @include base.transition(color);
+      // remove all the standard button css styling
+      @include base.remove-button-styling;
+      font-size: 1.3rem;
+      color: black;
     
       &:hover {
         @include base.transition(color);

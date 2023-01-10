@@ -26,12 +26,14 @@ const props = defineProps({
   width: 450px;
   @include base.box-shadow;
 
+  &__thumbnail {
+    display: block;
+    // this makes the image adjust to it's container's size
+    img { max-width: 100%; }
+  }
+
   &__text-section {
     padding: 20px;
-    height: fit-content;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
 
     &__date {
       font-size: 0.8rem;
@@ -41,6 +43,8 @@ const props = defineProps({
     &__title {
       font-size: 1.2rem;
       font-weight: 500;
+      text-decoration: none;
+      color: black;
       @include base.transition(color);
 
       &:hover {

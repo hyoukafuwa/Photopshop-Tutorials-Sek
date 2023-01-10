@@ -12,3 +12,18 @@ const showSearchBar = ref(false)
   <SearchBar v-if="showSearchBar"/>
   <RouterView></RouterView>
 </template>
+
+<style lang="scss">
+@use '@/assets/base';
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: base.$font;
+}
+
+</style>
