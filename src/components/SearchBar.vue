@@ -40,10 +40,13 @@ const props = defineProps({
   }
 
   &__submit-button {
-    background-color: base.$blue;
     color: #fff;
     width: 50px;
     border-radius: 5px;
+    @include base.remove-button-styling;
+    // this had to be set over "background-color" in order for the button to not lose its background
+    // as the mixin defined in base.scss removes it by default
+    background-color: base.$blue;
     @include base.transition(background-color, 300ms);
 
     &:hover {
