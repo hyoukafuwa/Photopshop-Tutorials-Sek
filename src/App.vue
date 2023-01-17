@@ -8,6 +8,11 @@ import AuthModal from './components/AuthModal.vue'
 
 const showSearchBar = ref(false)
 const showAuthModal = ref(true)
+
+// disable the scroll bar when the auth modal is active
+if (showAuthModal) document.body.style.overflow = 'hidden'
+if (!showAuthModal) document.body.style.overflow = 'auto'
+
 </script>
 
 <template>
