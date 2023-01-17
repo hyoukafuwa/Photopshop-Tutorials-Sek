@@ -7,13 +7,13 @@ import { initializeApp } from "firebase/app";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  process.env.API_KEY,
-  process.env.AUTH_DOMAIN,
-  process.env.PROJECT_ID,
-  process.env.STORAGE_BUCKET,
-  process.env.MESSGING_SENDER_ID,
-  process.env.APP_ID_1,
-  process.env.MEASUREMENT_ID
+  process.env.VUE_APP_API_KEY,
+  process.env.VUE_APP_AUTH_DOMAIN,
+  process.env.VUE_APP_PROJECT_ID,
+  process.env.VUE_APP_STORAGE_BUCKET,
+  process.env.VUE_APP_MESSGING_SENDER_ID,
+  process.env.VUE_APP_APP_ID_1,
+  process.env.VUE_APP_MEASUREMENT_ID
 };
 
 // Initialize Firebase

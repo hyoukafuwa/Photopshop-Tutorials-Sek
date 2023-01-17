@@ -13,9 +13,9 @@ import { RouterLink } from 'vue-router';
       <button @click="$emit('showOrHideSearchBar')" class="header__nav-search">
         <i class="fa-solid fa-magnifying-glass"></i>
       </button>
-      <RouterLink to="/" class="header__nav-login">
+      <button @click="$emit('openAuthModal')" class="header__nav-login">
         <i class="fa-solid fa-user"></i>
-      </RouterLink>
+      </button>
     </nav>
   </header>
 </template>
