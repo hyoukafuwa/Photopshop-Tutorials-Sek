@@ -12,6 +12,18 @@ $font: 'Playfair Display', serif;
   cursor: pointer;
 }
 
+@mixin button-styling($bg-color: $blue, $bg-color-hover: $hover-blue, $text-color: #fff) {
+  @include remove-button-styling;
+  color: $text-color;
+  background-color: $bg-color;
+  border-radius: 5px;
+  @include transition(background-color, 300ms);
+
+  &:hover {
+    background-color: $bg-color-hover;
+  }
+}
+
 @mixin justify-align($justify: center, $align: center) {
   justify-content: $justify;
   align-items: $align;
@@ -28,4 +40,18 @@ $font: 'Playfair Display', serif;
   -moz-transition: $el $duration ease;
   -ms-transition: $el $duration ease;
   -o-transition: $el $duration ease;
+}
+
+@mixin input-styling {
+  padding-left: 10px;
+  border-style: solid;
+  border-radius: 5px;
+  border-width: 2px;
+  border-color: $grey;
+  @include transition(border-color, 100ms);
+
+  &:focus {
+    outline: none;
+    border-color: $hover-blue;
+  }
 }

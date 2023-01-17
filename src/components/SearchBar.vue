@@ -25,33 +25,13 @@ const props = defineProps({
   &__search-bar {
     width: 70%;
     height: 40px;
-    border-style: solid;
-    border-width: 2px;
-    border-color: base.$grey;
-    margin-right: 5px;
-    padding-left: 10px;
-    border-radius: 5px;
-    @include base.transition(border-color, 100ms);
-
-    &:focus {
-      outline: none;
-      border-color: base.$hover-blue;
-    }
+    margin-right: 10px;
+    @include base.input-styling;
   }
 
   &__submit-button {
-    color: #fff;
     width: 50px;
-    border-radius: 5px;
-    @include base.remove-button-styling;
-    // this had to be set over "background-color" in order for the button to not lose its background
-    // as the mixin defined in base.scss removes it by default
-    background-color: base.$blue;
-    @include base.transition(background-color, 300ms);
-
-    &:hover {
-      background-color: base.$hover-blue;
-    }
+    @include base.button-styling;
   }
 }
 </style>

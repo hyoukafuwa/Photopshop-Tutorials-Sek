@@ -12,7 +12,7 @@ const showAuthModal = ref(true)
 
 <template>
   <Header @showOrHideSearchBar="showSearchBar = !showSearchBar" @openAuthModal="showAuthModal = !showAuthModal"/>
-  <AuthModal v-if="showAuthModal"/>
+  <AuthModal @closeModal="showAuthModal = false" v-if="showAuthModal"/>
   <SearchBar v-if="showSearchBar"/>
   <RouterView></RouterView>
 </template>
