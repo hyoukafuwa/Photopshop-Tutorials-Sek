@@ -17,9 +17,7 @@
         <form class="auth-modal__content__lower-part__form">
           <input type="email" placeholder="E-Mail" class="auth-modal__content__lower-part__form__email">
           <input type="password" placeholder="Passwort" class="auth-modal__content__lower-part__form__password">
-          <button class="auth-modal__content__lower-part__form__submit">
-            Login
-          </button>
+          <button class="auth-modal__content__lower-part__form__submit">Login</button>
         </form>
       </div>
     </div>
@@ -59,8 +57,7 @@
     &__upper-part {
       display: flex;
       width: inherit;
-      justify-content: space-between;
-      align-items: flex-start;
+      @include base.justify-align(space-between, flex-start);
       padding: 10px;
 
       &__close-btn {
