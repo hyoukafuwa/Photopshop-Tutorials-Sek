@@ -7,17 +7,21 @@ import SearchBar from './components/SearchBar.vue'
 import AuthModal from './components/AuthModal.vue'
 
 const showSearchBar = ref(false)
-const showAuthModal = ref(true)
+const showAuthModal = ref(false)
 
-// disable the scroll bar when the auth modal is active
-if (showAuthModal) document.body.style.overflow = 'hidden'
-if (!showAuthModal) document.body.style.overflow = 'auto'
+// functionality of hiding or showing the scroll bar when the auth modal is active
+function hideOrShowAuthModal() {
+  showAuthModal.value = !showAuthModal.value;
+  document.body.style.overflow = 'auto'
+  if (showAuthModal.value) document.body.style.overflow = 'hidden'
+  console.log(showAuthModal.value)
+}
 
 </script>
 
 <template>
-  <Header @showOrHideSearchBar="showSearchBar = !showSearchBar" @openAuthModal="showAuthModal = !showAuthModal"/>
-  <AuthModal @closeModal="showAuthModal = false" v-if="showAuthModal"/>
+  <Header @showOrHideSearchBar="showSearchBar = !showSearchBar" @openAuthModal="hideOrShowAuthModal()"/>
+  <AuthModal @closeModal="hideOrShowAuthModal()" v-if="showAuthModal"/>
   <SearchBar v-if="showSearchBar"/>
   <RouterView></RouterView>
 </template>
