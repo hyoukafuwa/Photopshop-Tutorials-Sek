@@ -5,6 +5,7 @@ import { ref } from 'vue'
 import Header from './components/Header.vue'
 import SearchBar from './components/SearchBar.vue'
 import AuthModal from './components/AuthModal.vue'
+import Footer from './components/Footer.vue'
 
 const showSearchBar = ref(false)
 const showAuthModal = ref(false)
@@ -24,6 +25,7 @@ function hideOrShowAuthModal() {
   <AuthModal @closeModal="hideOrShowAuthModal()" v-if="showAuthModal"/>
   <SearchBar v-if="showSearchBar"/>
   <RouterView></RouterView>
+  <Footer/>
 </template>
 
 <style lang="scss">
