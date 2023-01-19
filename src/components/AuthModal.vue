@@ -40,7 +40,6 @@ function login() {
       }
     })
 }
-
 </script>
 
 <template>
