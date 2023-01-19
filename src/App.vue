@@ -20,8 +20,8 @@ function hideOrShowAuthModal() {
 </script>
 
 <template>
-  <Header @showOrHideSearchBar="showSearchBar = !showSearchBar" @openAuthModal="hideOrShowAuthModal()"/>
-  <AuthModal @closeModal="hideOrShowAuthModal()" v-if="showAuthModal"/>
+  <Header @showOrHideSearchBar="showSearchBar = !showSearchBar" @openAuthModal="hideOrShowAuthModal"/>
+  <AuthModal @closeModal="hideOrShowAuthModal" v-if="showAuthModal"/>
   <SearchBar v-if="showSearchBar"/>
   <RouterView></RouterView>
   <Footer/>
