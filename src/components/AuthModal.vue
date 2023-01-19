@@ -1,4 +1,45 @@
 <script setup>
+import { ref, reactive } from 'vue'
+import { signInWithEmailAndPassword } from 'firebase/auth'
+import { auth } from '../firebase'
+
+const user = reactive({
+  email: '',
+  password: ''
+})
+
+const errorMessage = ref('')
+
+function login() {
+  // check if field is empty
+  if (!user.email || !user.password) {
+    errorMessage.value = 'Das Feld darf nicht leer sein'
+    return
+  }
+
+  // firebase auth
+  signInWithEmailAndPassword(auth, user.email, user.password)
+    .then(data => {
+      console.log('succesfully logged in')
+      console.log(auth.currentUser)
+    })
+    .catch(err => {
+      switch (err.code) {
+        case 'auth/invalid-email':
+          errorMessage.value = 'falsche E-Mail'
+          break;
+        case 'auth/user-not-found':
+          errorMessage.value = 'kein Konto mit dieser E-Mail wurde gefunden'
+          break;
+        case 'auth/wrong-password':
+          errorMessage.value = 'falsches Passwort'
+          break
+        default:
+          errorMessage.value = 'E-Mail oder Passwort ist falsch'
+          break
+      }
+    })
+}
 
 </script>
 
@@ -14,10 +55,13 @@
         </button>
       </div>
       <div class="auth-modal__content__lower-part">
+        <span v-if="errorMessage" class="auth-modal__content__lower-part__error-message">
+          <i>{{ errorMessage }}</i>
+        </span>
         <form class="auth-modal__content__lower-part__form">
-          <input type="email" placeholder="E-Mail" class="auth-modal__content__lower-part__form__email">
-          <input type="password" placeholder="Passwort" class="auth-modal__content__lower-part__form__password">
-          <button class="auth-modal__content__lower-part__form__submit">Login</button>
+          <input v-model="user.email" type="email" placeholder="E-Mail" class="auth-modal__content__lower-part__form__email">
+          <input v-model="user.password" type="password" placeholder="Passwort" class="auth-modal__content__lower-part__form__password">
+          <button @click.prevent="login" class="auth-modal__content__lower-part__form__submit">Login</button>
         </form>
       </div>
     </div>
@@ -72,8 +116,15 @@
 
     &__lower-part {
       display: flex;
-      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 10px;
       height: 400px;
+
+      &__error-message {
+        font-size: 0.8rem;
+        color: base.$red;
+      }
 
       &__form {
         display: flex;
