@@ -15,7 +15,6 @@ function hideOrShowAuthModal() {
   showAuthModal.value = !showAuthModal.value;
   document.body.style.overflow = 'auto'
   if (showAuthModal.value) document.body.style.overflow = 'hidden'
-  console.log(showAuthModal.value)
 }
 
 </script>
