@@ -3,6 +3,8 @@ import { ref, reactive } from 'vue'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '../firebase'
 
+const emit = defineEmits(['closeModal'])
+
 const user = reactive({
   email: '',
   password: ''
@@ -19,9 +21,8 @@ function login() {
 
   // firebase auth
   signInWithEmailAndPassword(auth, user.email, user.password)
-    .then(data => {
-      console.log('succesfully logged in')
-      console.log(auth.currentUser)
+    .then(userCredential => {
+      emit('closeModal')
     })
     .catch(err => {
       switch (err.code) {
@@ -45,11 +46,11 @@ function login() {
 <template>
   <section class="auth-modal">
     <!-- backdrop element of auth modal -->
-    <div @click="$emit('closeModal')" class="auth-modal__background"></div>
+    <div @click="emit('closeModal')" class="auth-modal__background"></div>
     <div class="auth-modal__content">
       <div class="auth-modal__content__upper-part">
         <h2 class="auth-modal__content__upper-part__title">Login</h2>
-        <button @click="$emit('closeModal')" class="auth-modal__content__upper-part__close-btn">
+        <button @click="emit('closeModal')" class="auth-modal__content__upper-part__close-btn">
           <i class="fa-sharp fa-solid fa-xmark"></i>
         </button>
       </div>
