@@ -5,11 +5,10 @@ import { auth } from './firebase'
 import { onAuthStateChanged } from '@firebase/auth'
 
 import Header from './components/Header.vue'
-import SearchBar from './components/SearchBar.vue'
 import AuthModal from './components/AuthModal.vue'
 import Footer from './components/Footer.vue'
 
-const showSearchBar = ref(false)
+const showSearchBar = ref(true)
 const showAuthModal = ref(false)
 const isLoggedIn = ref(false)
 
@@ -20,6 +19,11 @@ function hideOrShowAuthModal() {
   if (showAuthModal.value) document.body.style.overflow = 'hidden'
 }
 
+function search() {
+
+}
+
+// check if user is logged in when reloading website
 onMounted(() => {
   onAuthStateChanged(auth, user => {
     if (!user) return
@@ -35,12 +39,13 @@ onMounted(() => {
     @showOrHideSearchBar="showSearchBar = !showSearchBar" 
     @openAuthModal="hideOrShowAuthModal"
     @signedOut="isLoggedIn = false"
+    @searchExecuted="search"
   />
+  <!-- <SearchBar v-if="showSearchBar"/> -->
   <AuthModal 
     v-if="showAuthModal" 
     @closeModal="hideOrShowAuthModal"
   />
-  <SearchBar v-if="showSearchBar"/>
   <RouterView></RouterView>
   <Footer/>
 </template>
