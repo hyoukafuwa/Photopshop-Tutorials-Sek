@@ -2,20 +2,28 @@
 import { RouterLink } from 'vue-router';
 import { auth } from '../firebase'
 import { signOut } from '@firebase/auth'
+import { ref } from 'vue'
 
 const props = defineProps({
   isLoggedIn: Boolean
 })
 
-const emit = defineEmits(['openAuthModal', 'showOrHideSearchBar', 'signedOut'])
+const emit = defineEmits(['openAuthModal', 'showOrHideSearchBar', 'signedOut', 'searchExecuted'])
+
+const searchBarValue = ref('')
 
 // sign out when confirm prompt returns a positive value
 function handleSignOut() {
-  if (confirm('Möchtest du dich wirklich abmelden?')) {
+  if (confirm('Hiermit bestätigst du, dass du dich abmeldest')) {
     signOut(auth).then(() => {
       emit('signedOut')
     })
   }
+}
+
+function handleSearch() {
+  if (!searchBarValue.value) return
+  emit('searchExecuted')
 }
 </script>
 
@@ -27,18 +35,20 @@ function handleSignOut() {
       </RouterLink>
     </h3>
     <nav class="header__nav">
-      <button @click="emit('showOrHideSearchBar')" class="header__nav__search">
-        <i class="fa-solid fa-magnifying-glass"></i>
-      </button>
+      <form @submit.prevent="" class="header__nav__search-bar-form">
+        <input class="header__nav__search-bar-form__search-bar" type="text" placeholder="Wie..." v-model="searchBarValue">
+        <button class="header__nav__search-bar-form__search-button" @click="handleSearch">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </form>
       <button v-if="!isLoggedIn" @click="emit('openAuthModal')" class="header__nav__login">
         <i class="fa-solid fa-user"></i>
       </button>
       <button v-if="isLoggedIn" @click="handleSignOut" class="header__nav__log-out">
         <i class="fa-solid fa-right-from-bracket"></i>
       </button>
-      <RouterLink v-if="isLoggedIn" to="/create-post" class="header__nav__create-post">
+      <RouterLink v-if="isLoggedIn" to="/add-post" class="header__nav__add-post">
         <i class="fa-solid fa-plus"></i>
-        <span>Add Post</span>
       </RouterLink>
     </nav>
   </header>
@@ -65,13 +75,30 @@ function handleSignOut() {
   }
 
   &__nav {
-    // width: 50px;
     display: flex;
-    gap: 10px;
+    gap: 5px;
     @include base.justify-align(space-between, center);
 
-    // target button elements in nav
-    &__search, &__login, &__log-out {
+    &__search-bar-form {
+      display: flex;
+      height: 35px;
+      margin-right: 15px;
+      
+      &__search-bar {
+        @include base.input-styling;
+        width: 200px;
+        border-radius: 0;
+      }
+
+      &__search-button {
+        width: 40px;
+        @include base.button-styling;
+        border-radius: 0;
+      }
+    }
+
+    // target all button elements in nav
+    &__login, &__log-out, &__add-post {
       @include base.transition(color);
       // remove all the standard button css styling
       @include base.remove-button-styling;
@@ -82,17 +109,6 @@ function handleSignOut() {
         @include base.transition(color);
         color: base.$hover-blue;
       }
-    }
-
-    &__create-post {
-      display: flex;
-      font-size: 0.9rem;
-      gap: 5px;
-      @include base.remove-anchor-styling;
-      @include base.button-styling;
-      @include base.justify-align();
-      height: 35px;
-      width: 90px;
     }
   }
 }
