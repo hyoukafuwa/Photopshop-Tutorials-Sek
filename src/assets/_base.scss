@@ -7,6 +7,11 @@ $red: #ef4444;
 $font: 'Playfair Display', serif;
 
 // mixins
+@mixin remove-anchor-styling($color: #000) {
+  text-color: $color;
+  text-decoration: none;
+}
+
 @mixin remove-button-styling {
   border: none;
   background: none;
