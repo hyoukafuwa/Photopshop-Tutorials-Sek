@@ -12,7 +12,7 @@ const user = reactive({
 
 const errorMessage = ref('')
 
-function login() {
+async function login() {
   // check if field is empty
   if (!user.email || !user.password) {
     errorMessage.value = 'Das Feld darf nicht leer sein'
@@ -20,26 +20,25 @@ function login() {
   }
 
   // firebase auth
-  signInWithEmailAndPassword(auth, user.email, user.password)
-    .then(userCredential => {
-      emit('closeModal')
-    })
-    .catch(err => {
-      switch (err.code) {
-        case 'auth/invalid-email':
-          errorMessage.value = 'falsche E-Mail'
-          break;
-        case 'auth/user-not-found':
-          errorMessage.value = 'kein Konto mit dieser E-Mail wurde gefunden'
-          break;
-        case 'auth/wrong-password':
-          errorMessage.value = 'falsches Passwort'
-          break
-        default:
-          errorMessage.value = 'E-Mail oder Passwort ist falsch'
-          break
-      }
-    })
+  try {
+    await signInWithEmailAndPassword(auth, user.email, user.password)
+    emit ('closeModal')
+  } catch (err) {
+    switch (err.code) {
+      case 'auth/invalid-email':
+        errorMessage.value = 'falsche E-Mail'
+        break;
+      case 'auth/user-not-found':
+        errorMessage.value = 'kein Konto mit dieser E-Mail wurde gefunden'
+        break;
+      case 'auth/wrong-password':
+        errorMessage.value = 'falsches Passwort'
+        break
+      default:
+        errorMessage.value = 'E-Mail oder Passwort ist falsch'
+        break
+    }
+  }
 }
 </script>
 
