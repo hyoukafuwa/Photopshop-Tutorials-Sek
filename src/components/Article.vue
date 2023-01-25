@@ -11,7 +11,7 @@ const props = defineProps({
       <img src="https://www.lamodula.at/media/wysiwyg/Lexikon/esche-holz-baum-1.jpeg" alt="Rick Astley">
     </RouterLink>
     <section class="article__text-section">
-      <p class="article__text-section__date">{{ date }}</p>
+      <i class="article__text-section__date">{{ date }}</i>
       <RouterLink to="/" class="article__text-section__title">
         <h2>{{ title }}</h2>
       </RouterLink>
@@ -36,8 +36,9 @@ const props = defineProps({
     padding: 20px;
 
     &__date {
-      font-size: 0.8rem;
+      font-size: 0.7rem;
       opacity: 0.6;
+      font-family: base.$dateFont;
     }
 
     &__title {
