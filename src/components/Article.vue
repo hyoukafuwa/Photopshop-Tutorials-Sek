@@ -1,20 +1,34 @@
 <script setup>
 const props = defineProps({
   title: String,
-  date: String
+  date: String,
+  id: {
+    type: String,
+    required: false
+  }
 })
 </script>
 
 <template>
   <article class="article">
-    <RouterLink to="/" class="article__thumbnail">
+      <!-- this is only supposed to be shown if it used on the front page -->
+    <RouterLink v-if="id" :to="`/${id}`" class="article__thumbnail">
       <img src="https://www.lamodula.at/media/wysiwyg/Lexikon/esche-holz-baum-1.jpeg" alt="Rick Astley">
     </RouterLink>
+      <!-- this is supposed to be shown on the add-post route -->
+    <span v-else class="article__thumbnail">
+      <img src="https://www.lamodula.at/media/wysiwyg/Lexikon/esche-holz-baum-1.jpeg" alt="Rick Astley">
+    </span>
     <section class="article__text-section">
       <i class="article__text-section__date">{{ date }}</i>
-      <RouterLink to="/" class="article__text-section__title">
-        <h2>{{ title }}</h2>
+      <!-- this is only supposed to be shown if it used on the front page -->
+      <RouterLink v-if="id" :to="`/${id}`" class="article__text-section__title">
+        <h1>{{ title }}</h1>
       </RouterLink>
+      <!-- this is supposed to be shown on the add-post route -->
+      <span v-else class="article__text-section__title">
+        <h1>{{ title }}</h1>
+      </span>
     </section>
   </article>
 </template>
@@ -24,6 +38,7 @@ const props = defineProps({
 
 .article {
   width: 450px;
+  height: 410px;
   @include base.box-shadow;
 
   &__thumbnail {
@@ -34,6 +49,9 @@ const props = defineProps({
 
   &__text-section {
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 
     &__date {
       font-size: 0.7rem;
@@ -42,7 +60,7 @@ const props = defineProps({
     }
 
     &__title {
-      font-size: 1.2rem;
+      font-size: 1.8rem;
       font-weight: 500;
       text-decoration: none;
       color: black;
