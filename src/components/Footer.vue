@@ -10,7 +10,7 @@
 @use '@/assets/base';
 
 .footer {
-  margin-top: 200px;
+  margin-top: 0;
   display: flex;
   height: 60px;
   width: 100%;
