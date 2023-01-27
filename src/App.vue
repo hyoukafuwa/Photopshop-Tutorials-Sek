@@ -8,7 +8,6 @@ import Header from './components/Header.vue'
 import AuthModal from './components/AuthModal.vue'
 import Footer from './components/Footer.vue'
 
-const showSearchBar = ref(true)
 const showAuthModal = ref(false)
 const isLoggedIn = ref(false)
 
@@ -34,16 +33,15 @@ onMounted(() => {
 </script>
 
 <template>
-  <Header 
-    :isLoggedIn="isLoggedIn" 
-    @showOrHideSearchBar="showSearchBar = !showSearchBar" 
+  <Header
+    :isLoggedIn="isLoggedIn"
     @openAuthModal="hideOrShowAuthModal"
     @signedOut="isLoggedIn = false"
     @searchExecuted="search"
   />
   <!-- <SearchBar v-if="showSearchBar"/> -->
-  <AuthModal 
-    v-if="showAuthModal" 
+  <AuthModal
+    v-if="showAuthModal"
     @closeModal="hideOrShowAuthModal"
   />
   <RouterView></RouterView>
