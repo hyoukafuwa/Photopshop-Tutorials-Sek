@@ -1,30 +1,35 @@
 <script setup>
-import { ref } from 'vue'
+import { db } from '../firebase'
+import { collection, getDocs } from 'firebase/firestore' 
+import { ref, onMounted } from 'vue'
+
+import createDateString from '../utils/createDateString'
 import Article from '../components/Article.vue'
 
-const articles = ref([
-  {
-    title: 'Tutorial 1',
-    date: '12.12.1212'
-  },
-  {
-    title: 'Tutorial 2',
-    date: '13.13.1313'
-  },
-  {
-    title: 'Tutorial 3',
-    date: '14.14.1414'
-  }, 
-  {
-    title: 'Tutorial 4',
-    date: '14.14.1414'
-  }
-])
+onMounted(async () => {
+  const querySnapshot = await getDocs(collection(db, 'tutorials'))
+  querySnapshot.forEach(doc => {
+    const articleDate = new Date(
+      doc.data().date.year, 
+      doc.data().date.month, 
+      doc.data().date.year
+    )
+
+    articles.value.push({
+      id: doc.id,
+      title: doc.data().title,
+      date: createDateString(articleDate)
+    })
+  })
+})
+
+const articles = ref([])
 </script>
 
 <template>
   <main class="main">
-    <Article v-for="article in articles" :title="article.title" :date="article.date"></Article>
+    <span v-if="!articles.length">Loading..</span>
+    <Article v-else v-for="article in articles" :title="article.title" :date="article.date" :id="article.id"/>
   </main>
 </template>
 
@@ -32,6 +37,7 @@ const articles = ref([
 @use '@/assets/base';
 
 .main {
+  min-height: 100vh;
   margin: 20px 0;
   display: flex;
   flex-wrap: wrap;
