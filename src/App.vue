@@ -1,5 +1,5 @@
 <script setup>
-import { RouterView } from 'vue-router'
+import { RouterView, useRouter } from 'vue-router'
 import { ref, onMounted } from 'vue'
 import { auth } from './firebase'
 import { onAuthStateChanged } from '@firebase/auth'
@@ -10,6 +10,7 @@ import Footer from './components/Footer.vue'
 
 const showAuthModal = ref(false)
 const isLoggedIn = ref(false)
+const router = useRouter()
 
 // functionality of hiding or showing the scroll bar when the auth modal is active
 function hideOrShowAuthModal() {
@@ -18,11 +19,16 @@ function hideOrShowAuthModal() {
   if (showAuthModal.value) document.body.style.overflow = 'hidden'
 }
 
+function handleSignOut() {
+  isLoggedIn.value = false
+  router.push('/')
+}
+
 function search() {
 
 }
 
-// check if user is logged in when reloading website
+// check if user is logged in when loading website
 onMounted(() => {
   onAuthStateChanged(auth, user => {
     if (!user) return
@@ -36,10 +42,9 @@ onMounted(() => {
   <Header
     :isLoggedIn="isLoggedIn"
     @openAuthModal="hideOrShowAuthModal"
-    @signedOut="isLoggedIn = false"
+    @signedOut="handleSignOut"
     @searchExecuted="search"
   />
-  <!-- <SearchBar v-if="showSearchBar"/> -->
   <AuthModal
     v-if="showAuthModal"
     @closeModal="hideOrShowAuthModal"

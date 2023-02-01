@@ -1,26 +1,12 @@
 <script setup>
 import { reactive, ref, onMounted } from 'vue'
-import { onAuthStateChanged } from 'firebase/auth'
 import { addDoc, collection } from 'firebase/firestore'
 import { db } from '../firebase'
-import { auth } from '../firebase'
-import { useRouter } from 'vue-router'
 
 import createDateString from '../utils/createDateString'
 import Article from '../components/Article.vue'
 
 import getYouTubeID from 'get-youtube-id'
-
-const router = useRouter()
-const userLoggedIn = ref()
-
-onMounted(() => {
-  // if the user is not logged in, he shall be sent back to the front page
-  onAuthStateChanged(auth, user => {
-    if (user) userLoggedIn.value = true
-    else router.push('/')
-  })
-})
 
 const articleData = reactive({
   title: '',
@@ -28,7 +14,7 @@ const articleData = reactive({
   description: ''
 })
 
-// whenever the input is clear it shall use 'Beispieltext' as a placeholder
+// whenever the input is empty it shall use 'Beispieltext' as a placeholder
 function asignTitle() {
   if (articleData.title) return articleData.title
   return 'Beispieltitel'
