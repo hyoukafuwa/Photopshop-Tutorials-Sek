@@ -1,22 +1,36 @@
-<script setup>
+<!-- <script setup>
 import { doc, getDoc } from 'firebase/firestore'
 import { db } from '../firebase'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
+import { useRoute } from 'vue-router'
 
-const props = defineProps([{ articleId: String }])
+const articleId = ref(route.params.articleId)
 const article = ref()
 const articleNotExisting = ref(false)
+const route = useRoute()
 
-onMounted(async () => {
-  const docRef = doc(db('tutorials', articleId))
-  const docSnap = await getDoc(docRef)
+// onMounted(async () => {
+//   const docRef = doc(db('tutorials', articleId))
+//   const docSnap = await getDoc(docRef)
 
-  if (!docSnap.exists()) return articleNotExisting.value = true
-  article.value = docSnap.data()
-})
+//   if (!docSnap.exists()) return articleNotExisting.value = true
+//   article.value = docSnap.data()
+// })
 
-</script>
+// watch(articleId, async (toParams, previousParams) => {
+//   const docRef = doc(db('tutorials', toParams))
+//   const docSnap = await getDoc(docRef)
+
+//   if (!docSnap.exists()) return articleNotExisting.value = true
+//   article.value = docSnap.data()
+// })
+
+console.log(articleNotExisting)
+
+</script> -->
 
 <template>
+
+<h1>test</h1>
 
 </template>
