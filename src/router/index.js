@@ -7,7 +7,7 @@ import { db } from '../firebase'
 import MainView from '../views/MainView.vue'
 import AddPostView from '../views/AddPostView.vue'
 import ArticleView from '../views/ArticleView.vue'
-import ErrorPageView from '../views/ErrorPageView.vue'
+import NotFoundView from '../views/NotFoundView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -16,14 +16,25 @@ const router = createRouter({
       path: '/',
       name: 'Main',
       component: MainView,
-      children: [
-       {
-        path: '/:articleId',
-        name: 'Article',
-        component: ArticleView,
-        props: true
-       }
-      ]
+    },
+    {
+      path: '/:articleId',
+      name: 'Article',
+      component: ArticleView,
+      beforeEnter: async (to, from) => {
+        const articleId = to.params.articleId
+        const docRef = doc(db, 'tutorials', articleId)
+        const docSnap = await getDoc(docRef)
+      
+        if (!docSnap.exists()) return {
+          name: 'NotFound',
+          // Match the path of your current page and keep the same url...
+          params: { pathMatch: to.path.split('/').slice(1) },
+          // ...and the same query and hash.
+          query: to.query,
+          hash: to.hash,
+        }
+      }
     },
     {
       path: '/add-post',
@@ -33,14 +44,14 @@ const router = createRouter({
         // if the user is not logged in, he shall be sent back to the front page
         onAuthStateChanged(auth, user => {
           if (user) next()
-          else return { path: '/' }
+          else return { name: 'Main' }
         })
       }
     },
     { 
       path: '/:pathMatch(.*)*', 
-      name: 'ErrorPage', 
-      component: ErrorPageView 
+      name: 'NotFound', 
+      component: NotFoundView 
     },
   ]
 })
