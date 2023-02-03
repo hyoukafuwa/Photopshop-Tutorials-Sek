@@ -29,18 +29,11 @@ async function addPostToDB() {
   // check if provided youtube url exists and get its id
   const youTubeId = getYouTubeID(articleData.youTubeUrl)
   if (youTubeId == null) alert('die angegebene YouTube-URL ist falsch')
-
-  const creationDate = new Date()
-
   if (!confirm('Hiermit bestätigen Sie, dass Sie diesen Artikel in dieser Form abschicken')) return
 
   await addDoc(collection(db, 'tutorials'), {
     title: articleData.title,
-    date: {
-      day: creationDate.getDate(),
-      month: creationDate.getMonth() + 1,
-      year: creationDate.getFullYear()
-    },
+    date: new Date().getTime(),
     youTubeUrl: youTubeId
   })
 

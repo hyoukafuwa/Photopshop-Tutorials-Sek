@@ -16,6 +16,8 @@ function createDateString(articleDate) {
     'Dezember'
   ]
 
+  console.log(articleDate.getMonth(), articleDate.getFullYear())
+
   return `${articleDate.getDate()}, ${months[articleDate.getMonth()]}, ${articleDate.getFullYear()}`
 }
 
