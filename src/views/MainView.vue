@@ -4,32 +4,30 @@ import { collection, getDocs } from 'firebase/firestore'
 import { ref, onMounted } from 'vue'
 
 import createDateString from '../utils/createDateString'
-import Article from '../components/Article.vue'
+import ArticleCard1 from '../components/ArticleCard1.vue'
+
+const articles = ref([])
 
 onMounted(async () => {
   const querySnapshot = await getDocs(collection(db, 'tutorials'))
   querySnapshot.forEach(doc => {
-    const articleDate = new Date(
-      doc.data().date.year, 
-      doc.data().date.month, 
-      doc.data().date.year
-    )
+    const article = doc.data()
+    const articleDate = new Date(article.date)
 
     articles.value.push({
       id: doc.id,
-      title: doc.data().title,
-      date: createDateString(articleDate)
+      title: article.title,
+      date: createDateString(articleDate),
     })
   })
 })
 
-const articles = ref([])
 </script>
 
 <template>
   <main class="main">
     <span v-if="!articles.length">Loading..</span>
-    <Article v-else v-for="article in articles" :title="article.title" :date="article.date" :id="article.id"/>
+    <ArticleCard1 v-else v-for="article in articles" :title="article.title" :date="article.date" :id="article.id"/>
   </main>
 </template>
 
@@ -39,11 +37,17 @@ const articles = ref([])
 .main {
   min-height: 100vh;
   margin: 20px 0;
-  display: flex;
-  flex-wrap: wrap;
   width: 100%;
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(3, 450px);
   justify-content: center;
-  gap: 20px;
+}
+
+@media (max-width: 1450px) {
+  .main {
+    grid-template-columns: repeat(auto-fill, 450px);
+  }  
 }
 
 </style>
