@@ -1,7 +1,6 @@
 <script setup>
 import { ref, reactive } from 'vue'
-import { signInWithEmailAndPassword } from 'firebase/auth'
-import { auth } from '../firebase'
+import { methods, state } from '../state/state'
 
 const emit = defineEmits(['closeModal'])
 
@@ -10,35 +9,9 @@ const user = reactive({
   password: ''
 })
 
-const errorMessage = ref('')
-
-async function login() {
-  // check if field is empty
-  if (!user.email || !user.password) {
-    errorMessage.value = 'Das Feld darf nicht leer sein'
-    return
-  }
-
-  // firebase auth
-  try {
-    await signInWithEmailAndPassword(auth, user.email, user.password)
-    emit ('closeModal')
-  } catch (err) {
-    switch (err.code) {
-      case 'auth/invalid-email':
-        errorMessage.value = 'falsche E-Mail'
-        break;
-      case 'auth/user-not-found':
-        errorMessage.value = 'kein Konto mit dieser E-Mail wurde gefunden'
-        break;
-      case 'auth/wrong-password':
-        errorMessage.value = 'falsches Passwort'
-        break
-      default:
-        errorMessage.value = 'E-Mail oder Passwort ist falsch'
-        break
-    }
-  }
+function handleSignIn() {
+  methods.signIn(user.email, user.password)
+  if (state.isLoggedIn) emit('closeModal')
 }
 </script>
 
@@ -54,13 +27,10 @@ async function login() {
         </button>
       </div>
       <div class="auth-modal__content__lower-part">
-        <span v-if="errorMessage" class="auth-modal__content__lower-part__error-message">
-          <i>{{ errorMessage }}</i>
-        </span>
         <form class="auth-modal__content__lower-part__form">
           <input v-model="user.email" type="email" placeholder="E-Mail" class="auth-modal__content__lower-part__form__email">
           <input v-model="user.password" type="password" placeholder="Passwort" class="auth-modal__content__lower-part__form__password">
-          <button @click.prevent="login" class="auth-modal__content__lower-part__form__submit">Login</button>
+          <button @click.prevent="handleSignIn" class="auth-modal__content__lower-part__form__submit">Login</button>
         </form>
       </div>
     </div>
@@ -119,11 +89,6 @@ async function login() {
       flex-direction: column;
       gap: 10px;
       height: 400px;
-
-      &__error-message {
-        font-size: 0.8rem;
-        color: base.$red;
-      }
 
       &__form {
         display: flex;
