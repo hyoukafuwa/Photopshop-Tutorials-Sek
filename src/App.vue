@@ -3,6 +3,7 @@ import { RouterView, useRouter } from 'vue-router'
 import { ref, onMounted } from 'vue'
 import { auth } from './firebase'
 import { onAuthStateChanged } from '@firebase/auth'
+import { methods } from './state/state'
 
 import Header from './components/Header.vue'
 import AuthModal from './components/AuthModal.vue'
@@ -34,6 +35,7 @@ onMounted(() => {
     if (!user) return
     isLoggedIn.value = true
   })
+  methods.fetchArticles()
 })
 
 </script>

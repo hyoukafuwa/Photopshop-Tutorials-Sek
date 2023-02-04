@@ -1,26 +1,10 @@
 <script setup>
-import { db } from '../firebase'
-import { collection, getDocs } from 'firebase/firestore' 
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 
-import createDateString from '../utils/createDateString'
 import ArticleCard1 from '../components/ArticleCard1.vue'
+import { getters } from '../state/state'
 
-const articles = ref([])
-
-onMounted(async () => {
-  const querySnapshot = await getDocs(collection(db, 'tutorials'))
-  querySnapshot.forEach(doc => {
-    const article = doc.data()
-    const articleDate = new Date(article.date)
-
-    articles.value.push({
-      id: doc.id,
-      title: article.title,
-      date: createDateString(articleDate),
-    })
-  })
-})
+const articles = ref(getters.getArticles())
 
 </script>
 
