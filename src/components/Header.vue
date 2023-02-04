@@ -1,12 +1,7 @@
 <script setup>
 import { RouterLink } from 'vue-router';
-import { auth } from '../firebase'
-import { signOut } from '@firebase/auth'
 import { ref } from 'vue'
-
-const props = defineProps({
-  isLoggedIn: Boolean
-})
+import { state, methods } from '../state/state'
 
 const emit = defineEmits(['openAuthModal', 'showOrHideSearchBar', 'signedOut', 'searchExecuted'])
 
@@ -15,9 +10,7 @@ const searchBarValue = ref('')
 // sign out when confirm prompt returns a positive value
 function handleSignOut() {
   if (confirm('Hiermit bestätigst du, dass du dich abmeldest')) {
-    signOut(auth).then(() => {
-      emit('signedOut')
-    })
+    methods.signOut()
   }
 }
 
@@ -41,13 +34,13 @@ function handleSearch() {
           <i class="fa-solid fa-magnifying-glass"></i>
         </button>
       </form>
-      <button v-if="!isLoggedIn" @click="emit('openAuthModal')" class="header__nav__login">
+      <button v-if="!state.isLoggedIn" @click="emit('openAuthModal')" class="header__nav__login">
         <i class="fa-solid fa-user"></i>
       </button>
-      <button v-if="isLoggedIn" @click="handleSignOut" class="header__nav__log-out">
+      <button v-if="state.isLoggedIn" @click="handleSignOut" class="header__nav__log-out">
         <i class="fa-solid fa-right-from-bracket"></i>
       </button>
-      <RouterLink v-if="isLoggedIn" to="/add-post" class="header__nav__add-post">
+      <RouterLink v-if="state.isLoggedIn" to="/add-post" class="header__nav__add-post">
         <i class="fa-solid fa-plus"></i>
       </RouterLink>
     </nav>

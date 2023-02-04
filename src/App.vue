@@ -1,8 +1,6 @@
 <script setup>
 import { RouterView, useRouter } from 'vue-router'
 import { ref, onMounted } from 'vue'
-import { auth } from './firebase'
-import { onAuthStateChanged } from '@firebase/auth'
 import { methods } from './state/state'
 
 import Header from './components/Header.vue'
@@ -31,10 +29,7 @@ function search() {
 
 // check if user is logged in when loading website
 onMounted(() => {
-  onAuthStateChanged(auth, user => {
-    if (!user) return
-    isLoggedIn.value = true
-  })
+  methods.checkUserState()
   methods.fetchArticles()
 })
 
@@ -47,10 +42,7 @@ onMounted(() => {
     @signedOut="handleSignOut"
     @searchExecuted="search"
   />
-  <AuthModal
-    v-if="showAuthModal"
-    @closeModal="hideOrShowAuthModal"
-  />
+  <AuthModal v-if="showAuthModal" @closeModal="hideOrShowAuthModal"/>
   <RouterView></RouterView>
   <Footer/>
 </template>
