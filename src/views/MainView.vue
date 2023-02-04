@@ -2,9 +2,9 @@
 import { ref } from 'vue'
 
 import ArticleCard1 from '../components/ArticleCard1.vue'
-import { getters } from '../state/state'
+import { state } from '../state/state'
 
-const articles = ref(getters.getArticles())
+const articles = ref(state.articles)
 
 </script>
 
