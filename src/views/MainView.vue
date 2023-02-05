@@ -11,7 +11,7 @@ const articles = ref(state.articles)
 <template>
   <main class="main">
     <span v-if="!articles.length">Loading..</span>
-    <ArticleCard1 v-else v-for="article in articles" :title="article.title" :date="article.date" :id="article.id"/>
+    <ArticleCard1 v-else v-for="article in articles" :title="article.title" :date="article.date" :id="article.id" :youTubeUrl="article.youTubeUrl"/>
   </main>
 </template>
 

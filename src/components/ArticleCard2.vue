@@ -1,21 +1,23 @@
 <script setup>
 const props = defineProps({
-  title: String,
-  youTubeUrl: String,
-  date: String,
-  id: String,
+  article: {
+    title: String,
+    youTubeUrl: String,
+    date: String,
+    id: String,
+  }
 })
 </script>
 
 <template>
   <article class="article">
-    <RouterLink :to="`/${id}`" class="article__thumbnail">
-      <img src="https://www.lamodula.at/media/wysiwyg/Lexikon/esche-holz-baum-1.jpeg" alt="Rick Astley">
+    <RouterLink :to="`/${article.id}`" class="article__thumbnail">
+      <img :src="`https://img.youtube.com/vi/${article.youTubeUrl}/hqdefault.jpg`" :alt="article.title">
     </RouterLink>
     <section class="article__text-section">
-      <i class="article__text-section__date">{{ date }}</i>
-      <RouterLink :to="`/${id}`" class="article__text-section__title">
-        <h1>{{ title }}</h1>
+      <i class="article__text-section__date">{{ article.date }}</i>
+      <RouterLink :to="`/${article.id}`" class="article__text-section__title">
+        <h1>{{ article.title }}</h1>
       </RouterLink>
     </section>
   </article>

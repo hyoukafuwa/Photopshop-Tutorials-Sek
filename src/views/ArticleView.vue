@@ -41,7 +41,7 @@ console.log(mainArticle.value)
         <h2>Andere Tutorials</h2>
       </span>
       <section class="article-view__aside__article-container">
-        <ArticleCard2 v-for="article in otherArticles" :title="article.title" :date="article.date" :id="article.id"/>
+        <ArticleCard2 v-for="article in otherArticles" :article="article"/>
       </section>
     </aside>
   </div>
