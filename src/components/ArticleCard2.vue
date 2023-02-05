@@ -1,5 +1,4 @@
 <script setup>
-
 const props = defineProps({
   title: String,
   date: String,
@@ -26,7 +25,8 @@ const props = defineProps({
 
 .article {
   display: flex;
-  width: 500px;
+  max-width: 450px;
+  min-width: 400px;
   height: 140px;
   @include base.box-shadow;
 
@@ -63,6 +63,12 @@ const props = defineProps({
         color: base.$hover-blue;
       }
     }
+  }
+}
+
+@media (max-width: 481px) {
+  .article__text-section__title {
+    font-size: 2rem;
   }
 }
 
