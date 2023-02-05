@@ -1,16 +1,18 @@
 <script setup>
-import { RouterLink } from 'vue-router';
+import { RouterLink, useRouter } from 'vue-router';
 import { ref } from 'vue'
 import { state, methods } from '../state/state'
 
-const emit = defineEmits(['openAuthModal', 'showOrHideSearchBar', 'signedOut', 'searchExecuted'])
+const emit = defineEmits(['openAuthModal', 'showOrHideSearchBar', 'searchExecuted'])
 
 const searchBarValue = ref('')
+const router = useRouter()
 
 // sign out when confirm prompt returns a positive value
 function handleSignOut() {
   if (confirm('Hiermit bestätigst du, dass du dich abmeldest')) {
     methods.signOut()
+    router.push('/')
   }
 }
 

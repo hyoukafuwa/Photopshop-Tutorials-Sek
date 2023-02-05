@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive } from 'vue'
+import { reactive, watch } from 'vue'
 import { methods, state } from '../state/state'
 
 const emit = defineEmits(['closeModal'])
@@ -11,8 +11,8 @@ const user = reactive({
 
 function handleSignIn() {
   methods.signIn(user.email, user.password)
-  if (state.isLoggedIn) emit('closeModal')
 }
+
 </script>
 
 <template>

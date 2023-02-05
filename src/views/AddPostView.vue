@@ -1,12 +1,9 @@
 <script setup>
-import { reactive, ref, onMounted } from 'vue'
-import { addDoc, collection } from 'firebase/firestore'
-import { db } from '../firebase'
+import { reactive } from 'vue'
+import { methods } from '../state/state'
 
 import createDateString from '../utils/createDateString'
-import Article from '../components/Article.vue'
-
-import getYouTubeID from 'get-youtube-id'
+import ArticleCard1 from '../components/ArticleCard1.vue'
 
 const articleData = reactive({
   title: '',
@@ -20,22 +17,13 @@ function asignTitle() {
   return 'Beispieltitel'
 }
 
-async function addPostToDB() {
+async function handleAddArticles() {
   // return an alert if one of the fields is without any value
   for (const val of Object.values(articleData)) {
     if (!val) return alert('Eines der Felder ist leer')
   }
-
-  // check if provided youtube url exists and get its id
-  const youTubeId = getYouTubeID(articleData.youTubeUrl)
-  if (youTubeId == null) alert('die angegebene YouTube-URL ist falsch')
-  if (!confirm('Hiermit bestätigen Sie, dass Sie diesen Artikel in dieser Form abschicken')) return
-
-  await addDoc(collection(db, 'tutorials'), {
-    title: articleData.title,
-    date: new Date().getTime(),
-    youTubeUrl: youTubeId
-  })
+  
+  methods.addArticles(articleData.title, articleData.youTubeUrl, description)
 
   // reset all fields
   articleData.title = ''
@@ -46,7 +34,7 @@ async function addPostToDB() {
 
 <template>
   <main class="add-post">
-    <form @submit.prevent="addPostToDB()" class="add-post__form">
+    <form @submit.prevent="handleAddArticles()" class="add-post__form">
       <span>
         <label for="add-post__form__title-input">Titel</label>
         <input v-model="articleData.title" type="text" placeholder="Tutorial..." class="add-post__form__title-input">
@@ -63,7 +51,7 @@ async function addPostToDB() {
       <button class="add-post__form__submit-article">Absenden</button>
     </form>
     <section class="add-post__preview">
-      <Article :title="asignTitle()" :date="createDateString(new Date())"/>
+      <ArticleCard1 :title="asignTitle()" :date="createDateString(new Date())"/>
     </section>
   </main>
 </template>
@@ -117,7 +105,7 @@ async function addPostToDB() {
   }
 }
 
-@media(max-width: 1024px) {
+@media (max-width: 1024px) {
   .add-post {
     flex-direction: column;
     align-items: center;
