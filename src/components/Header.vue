@@ -3,7 +3,7 @@ import { RouterLink, useRouter } from 'vue-router';
 import { ref } from 'vue'
 import { state, methods } from '../state/state'
 
-const emit = defineEmits(['openAuthModal', 'showOrHideSearchBar', 'searchExecuted'])
+const emit = defineEmits(['openAuthModal', 'showOrHideSearchBar'])
 
 const searchBarValue = ref('')
 const router = useRouter()
@@ -15,11 +15,6 @@ function handleSignOut() {
     router.push('/')
   }
 }
-
-function handleSearch() {
-  if (!searchBarValue.value) return
-  emit('searchExecuted')
-}
 </script>
 
 <template>
@@ -30,12 +25,6 @@ function handleSearch() {
       </RouterLink>
     </h3>
     <nav class="header__nav">
-      <form @submit.prevent="" class="header__nav__search-bar-form">
-        <input class="header__nav__search-bar-form__search-bar" type="text" placeholder="Wie..." v-model="searchBarValue">
-        <button class="header__nav__search-bar-form__search-button" @click="handleSearch">
-          <i class="fa-solid fa-magnifying-glass"></i>
-        </button>
-      </form>
       <button v-if="!state.isLoggedIn" @click="emit('openAuthModal')" class="header__nav__login">
         <i class="fa-solid fa-user"></i>
       </button>
@@ -73,24 +62,6 @@ function handleSearch() {
     display: flex;
     gap: 5px;
     @include base.justify-align(space-between, center);
-
-    &__search-bar-form {
-      display: flex;
-      height: 35px;
-      margin-right: 15px;
-      
-      &__search-bar {
-        @include base.input-styling;
-        width: 200px;
-        border-radius: 0;
-      }
-
-      &__search-button {
-        width: 40px;
-        @include base.button-styling;
-        border-radius: 0;
-      }
-    }
 
     // target all button elements in nav
     &__login, &__log-out, &__add-post {

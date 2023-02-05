@@ -31,7 +31,6 @@ onMounted(() => {
 <template>
   <Header
     @openAuthModal="hideOrShowAuthModal"
-    @searchExecuted="search"
   />
   <AuthModal v-if="showAuthModal" @closeModal="hideOrShowAuthModal"/>
   <RouterView></RouterView>
