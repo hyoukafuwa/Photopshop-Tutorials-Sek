@@ -19,11 +19,14 @@ function handleSignOut() {
 
 <template>
   <header class="header">
-    <h3 class="header__title">
+    <span class="header__logo">
       <RouterLink to="/">
-        Photoshop Tutorials
+        <img class="header__logo__icon" src="/public/logo/logo.png"/>
+        <h3 class="header__logo__title">
+          Photoshop Tutorials
+        </h3>
       </RouterLink>
-    </h3>
+    </span>
     <nav class="header__nav">
       <button v-if="!state.isLoggedIn" @click="emit('openAuthModal')" class="header__nav__login">
         <i class="fa-solid fa-user"></i>
@@ -48,13 +51,20 @@ function handleSignOut() {
   @include base.justify-align(space-around);
   @include base.box-shadow;
 
-  &__title {
-    font-weight: bold;
-    font-size: 1.2rem;
+  &__logo a {
+    text-decoration: none;
+    color: black;
+    display: flex;
+    align-items: center;
+    gap: 5px;
 
-    a {
-      text-decoration: none;
-      color: black;
+    .header__logo__icon {
+      width: 35px;
+    }
+
+    .header__logo__title {
+      font-weight: bold;
+      font-size: 1.3rem;
     }
   }
 
