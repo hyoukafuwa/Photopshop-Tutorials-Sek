@@ -13,8 +13,9 @@ let otherArticles = ref([])
 
 function getFittingArticles(id) {
   otherArticles.value = []
+  const stateArticles = state.articles.filter(article => article.id !== id)
+
   for (let i = 0; i < 3; i++) {
-    const stateArticles = state.articles.filter(article => article.id !== id)
     otherArticles.value.push(stateArticles[i])
   }
 } 
@@ -31,7 +32,7 @@ onBeforeRouteUpdate((to, from) => {
 </script>
 
 <template>
-  <div v-if="otherArticles !== []" class="article-view">
+  <div v-if="otherArticles" class="article-view">
     <ArticleSection :article="mainArticle"/>
     <aside class="article-view__aside">
       <span class="article-view__aside__title">
