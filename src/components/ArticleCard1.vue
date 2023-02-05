@@ -14,11 +14,13 @@ const props = defineProps({
   <article class="article">
       <!-- this is only supposed to be shown if it used on the front page -->
     <RouterLink v-if="id" :to="`/${id}`" class="article__thumbnail">
-      <img :src="`https://img.youtube.com/vi/${youTubeUrl}/maxresdefault.jpg`" alt="Rick Astley">
+      <img v-if="youTubeUrl" :src="`https://img.youtube.com/vi/${youTubeUrl}/maxresdefault.jpg`" alt="Rick Astley">
+      <img v-else src="https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg" alt="Rick Astley">
     </RouterLink>
       <!-- this is supposed to be shown on the add-post route -->
     <span v-else class="article__thumbnail">
-      <img :src="`https://img.youtube.com/vi/${youTubeUrl}/maxresdefault.jpg`" alt="Rick Astley">
+      <img v-if="youTubeUrl" :src="`https://img.youtube.com/vi/${youTubeUrl}/maxresdefault.jpg`" alt="Rick Astley">
+      <img v-else src="https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg" alt="Rick Astley">
     </span>
     <section class="article__text-section">
       <i class="article__text-section__date">{{ date }}</i>

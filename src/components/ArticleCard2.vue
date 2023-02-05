@@ -47,7 +47,6 @@ const props = defineProps({
     display: flex;
     flex-direction: column-reverse;
     justify-content: center;
-    align-items: center;
 
     &__date {
       font-size: 0.7rem;
@@ -56,7 +55,7 @@ const props = defineProps({
     }
 
     &__title {
-      font-size: 2.5rem;
+      font-size: 1.8rem;
       font-weight: 500;
       text-decoration: none;
       color: black;
