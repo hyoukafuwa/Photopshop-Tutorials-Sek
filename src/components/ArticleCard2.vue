@@ -1,6 +1,7 @@
 <script setup>
 const props = defineProps({
   title: String,
+  youTubeUrl: String,
   date: String,
   id: String,
 })

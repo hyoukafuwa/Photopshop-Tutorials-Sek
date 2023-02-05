@@ -64,7 +64,8 @@ export const methods = {
         id: doc.id,
         title: article.title,
         date: createDateString(articleDate),
-        description: article.description
+        description: article.description,
+        youTubeUrl: article.youTubeUrl
       })
     })
   },

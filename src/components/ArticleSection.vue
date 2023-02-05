@@ -7,6 +7,7 @@ const router = useRouter()
 const props = defineProps({
   article: {
     title: String,
+    youTubeUrl: String,
     date: String,
     id: String,
     description: String
@@ -32,7 +33,7 @@ function handleDeletinArticle() {
       <i>{{ article.date }}</i>
     </span>
     <section class="article-section__video">
-      <iframe src="https://www.youtube.com/embed/5N_fTRZuTkc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      <iframe :src="`https://www.youtube.com/embed/${article.youTubeUrl}`" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
     </section>
     <button class="article-section__button" v-if="state.isLoggedIn" @click="handleDeletinArticle">
       <i class="fa-solid fa-trash"></i>
