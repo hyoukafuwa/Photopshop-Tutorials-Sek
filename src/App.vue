@@ -1,7 +1,7 @@
 <script setup>
 import { RouterView } from 'vue-router'
 import { ref, onMounted } from 'vue'
-import { methods, state } from './state/state'
+import { methods } from './state/state'
 
 import Header from './components/Header.vue'
 import AuthModal from './components/AuthModal.vue'
@@ -14,10 +14,6 @@ function hideOrShowAuthModal() {
   showAuthModal.value = !showAuthModal.value;
   document.body.style.overflow = 'auto'
   if (showAuthModal.value) document.body.style.overflow = 'hidden'
-}
-
-function search() {
-
 }
 
 // check if user is logged in when loading website
