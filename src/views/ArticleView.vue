@@ -29,8 +29,6 @@ onBeforeRouteUpdate((to, from) => {
   getFittingArticles(to.params.articleId)
 })
 
-console.log(mainArticle.value)
-
 </script>
 
 <template>
