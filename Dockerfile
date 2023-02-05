@@ -1,11 +1,8 @@
 # base image
-FROM node:12.2.0-alpine
+FROM node
 
 # set working directory
 WORKDIR /app
-
-# add `/app/node_modules/.bin` to $PATH
-ENV PATH /app/node_modules/.bin:$PATH
 
 COPY package.json .
 RUN npm install
