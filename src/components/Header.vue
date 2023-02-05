@@ -21,7 +21,7 @@ function handleSignOut() {
   <header class="header">
     <span class="header__logo">
       <RouterLink to="/">
-        <img class="header__logo__icon" src="/public/logo/logo.png"/>
+        <img class="header__logo__icon" src="/logo/logo.png"/>
         <h3 class="header__logo__title">
           Photoshop Tutorials
         </h3>
