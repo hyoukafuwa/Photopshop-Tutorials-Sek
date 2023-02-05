@@ -1,5 +1,5 @@
 import { reactive } from 'vue'
-import { getDocs, collection, addDoc } from 'firebase/firestore'
+import { getDocs, collection, addDoc, doc, deleteDoc } from 'firebase/firestore'
 import { signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth'
 import { db, auth } from '../firebase'
 
@@ -80,5 +80,8 @@ export const methods = {
       youTubeUrl: youTubeId,
       description: description
     })
+  },
+  async deleteArticle(articleId) {
+    await deleteDoc(doc(db, 'tutorials', articleId))
   }
 }
