@@ -1,14 +1,14 @@
 <script setup>
-import { useRoute } from 'vue-router'
-import { ref } from 'vue'
 import { state } from '../state/state'
 
-const route = useRoute()
-const articleId = route.params.articleId
-
-// get the one article form the array that has the site params's id
-const article = ref(state.articles.filter(article => article.id === articleId)[0])
-console.log(article.value)
+const props = defineProps({
+  article: {
+    title: String,
+    date: String,
+    id: String,
+    description: String
+  }
+})
 
 </script>
 
@@ -18,13 +18,14 @@ console.log(article.value)
       {{ article.title }}
     </h1>
     <span class="article-section__date">
-      {{ article.date }}
+      <i>{{ article.date }}</i>
     </span>
     <section class="article-section__video">
       <iframe src="https://www.youtube.com/embed/5N_fTRZuTkc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
     </section>
     <button class="article-section__button" v-if="state.isLoggedIn">
-      Delete
+      <i class="fa-solid fa-trash"></i>
+      Löschen
     </button>
     <section class="article-section__description">
       <p class="article-section__article__description__paragraph">
@@ -38,58 +39,67 @@ console.log(article.value)
 @use '@/assets/base';
 
 .article-section {
-  max-width: 900px;
-  height: 800px;
-  // min-width: 600px;
+  width: 50vw;
   @include base.box-shadow;
-  // display: flex;
-  // flex-direction: column;
   display: grid;
-  grid-template-columns: 50px repeat(2, 4fr) 50px;
-  grid-template-rows: 80px minmax(300px, 500px) 40px minmax(60px, 200px);
-
-  &__video {
-    grid-column: 2 / 4;
-    // grid-row-end: 1;
-    // justify-self: center;
-    display: flex;
-    align-items: center;
-
-    iframe {
-      // width: 500px;
-      // height: 300px;
-      width: 100%;
-      height: 90%;
-    }
-  }
+  grid-template-columns: 1fr repeat(2, minmax(150px, 300px)) 1fr;
+  grid-template-rows: 80px 40vh 50px 400px;
 
   &__title {
-    // align-self: center;
-    font-size: 2.2rem;
-    margin-bottom: 10px;
-    grid-column-start: 2;
+    font-size: 2rem;
+    grid-column: 2 / 4;
   }
 
   &__date {
-    justify-self: end;
-    grid-column-start: 3
+    grid-column: 2 / 3;
+    grid-row: 3 / 4;
+    align-self: center;
+    font-family: base.$dateFont;
+    font-size: 0.9rem;
+    opacity: 0.8;
   }
 
-  &__description {
-    grid-row-start: 4;
+  &__video {
     grid-column: 2 / 4;
-    align-self: center;
-    padding-right: 20px;
+
+    iframe {
+      height: 100%;
+      width: 100%;
+    }
   }
 
   &__button {
+    grid-column: 3 / 4;
     @include base.button-styling(base.$red, base.$hover-red);
-    width: 100px;
-    height: 30px;
-    justify-self: end;
-    grid-row-start: 3;
-    grid-column-end: 4;
+    width: 90px;
+    height: 35px;
     align-self: center;
+    justify-self: end;
+    font-weight: 600;
+    display: flex;
+    @include base.justify-align(space-evenly, center);
+  }
+
+  &__description {
+    grid-row: 4 / 5;
+    grid-column: 2 / 4;
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-top: 40px;
+  }
+}
+
+@media (max-width: 1400px) {
+  .article-section {
+    width: 100vw;
+
+    &__date {
+      margin-left: 10px;
+    }
+
+    &__button {
+      margin-right: 10px;
+    }
   }
 }
 
