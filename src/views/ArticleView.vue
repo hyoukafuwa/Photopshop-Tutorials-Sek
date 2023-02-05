@@ -12,12 +12,11 @@ const articleId = route.params.articleId
 let otherArticles = ref([])
 
 function getFittingArticles(id) {
-  otherArticles.value = []
   const stateArticles = state.articles.filter(article => article.id !== id)
 
-  for (let i = 0; i < 3; i++) {
-    otherArticles.value.push(stateArticles[i])
-  }
+  stateArticles.forEach(article => {
+    otherArticles.value.push(article)
+  })
 } 
 
 getFittingArticles(articleId)
@@ -25,14 +24,17 @@ getFittingArticles(articleId)
 let mainArticle = ref(state.articles.filter(article => article.id === articleId)[0])
 
 onBeforeRouteUpdate((to, from) => {
+  otherArticles.value = []
   mainArticle.value = state.articles.filter(article => article.id === to.params.articleId)[0]
   getFittingArticles(to.params.articleId)
 })
 
+console.log(mainArticle.value)
+
 </script>
 
 <template>
-  <div v-if="otherArticles" class="article-view">
+  <div v-if="otherArticles !== []" class="article-view">
     <ArticleSection :article="mainArticle"/>
     <aside class="article-view__aside">
       <span class="article-view__aside__title">
