@@ -1,5 +1,8 @@
 <script setup>
-import { state } from '../state/state'
+import { state, methods } from '../state/state'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const props = defineProps({
   article: {
@@ -9,6 +12,14 @@ const props = defineProps({
     description: String
   }
 })
+
+function handleDeletinArticle() {
+  if (confirm('Möchtest du diesen Artikel wirklich löschen?')) {
+    methods.deleteArticle(props.article.id)
+    router.push({ name: 'Main' })
+    alert('Artikel wurde aus der Datenbank gelöscht')
+  }
+}
 
 </script>
 
@@ -23,7 +34,7 @@ const props = defineProps({
     <section class="article-section__video">
       <iframe src="https://www.youtube.com/embed/5N_fTRZuTkc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
     </section>
-    <button class="article-section__button" v-if="state.isLoggedIn">
+    <button class="article-section__button" v-if="state.isLoggedIn" @click="handleDeletinArticle">
       <i class="fa-solid fa-trash"></i>
       Löschen
     </button>
