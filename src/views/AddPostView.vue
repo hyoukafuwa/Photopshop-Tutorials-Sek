@@ -23,7 +23,7 @@ async function handleAddArticles() {
     if (!val) return alert('Eines der Felder ist leer')
   }
   
-  methods.addArticles(articleData.title, articleData.youTubeUrl, description)
+  methods.addArticles(articleData.title, articleData.youTubeUrl, articleData.description)
 
   // reset all fields
   articleData.title = ''
