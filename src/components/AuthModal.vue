@@ -11,6 +11,7 @@ const user = reactive({
 
 function handleSignIn() {
   methods.signIn(user.email, user.password)
+  if (state.user) emit('closeModal') 
 }
 
 </script>
