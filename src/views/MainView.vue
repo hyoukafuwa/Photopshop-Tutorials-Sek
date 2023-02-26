@@ -23,14 +23,16 @@ const articles = ref(state.articles)
   margin: 20px 0;
   width: 100%;
   display: grid;
-  grid-gap: 10px;
-  grid-template-columns: repeat(3, 450px);
+  gap: 10px;
+  grid-template-columns: repeat(3, minmax(410px, 1fr));
+  grid-template-columns: repeat(auto-fill, 1fr);
   justify-content: center;
+  padding: 20px;
 }
 
-@media (max-width: 1450px) {
+@media (max-width: 1536px) {
   .main {
-    grid-template-columns: repeat(auto-fill, 450px);
+    grid-template-columns: repeat(auto-fill, minmax(410px, 1fr));
   }  
 }
 

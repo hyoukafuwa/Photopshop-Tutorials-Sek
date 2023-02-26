@@ -12,7 +12,7 @@ const props = defineProps({
 <template>
   <article class="article">
     <RouterLink :to="`/${article.id}`" class="article__thumbnail">
-      <img :src="`https://img.youtube.com/vi/${article.youTubeUrl}/hqdefault.jpg`" :alt="article.title">
+      <img :src="`https://img.youtube.com/vi/${article.youTubeUrl}/maxresdefault.jpg`" :alt="article.title">
     </RouterLink>
     <section class="article__text-section">
       <i class="article__text-section__date">{{ article.date }}</i>
@@ -28,16 +28,16 @@ const props = defineProps({
 
 .article {
   display: flex;
-  max-width: 450px;
-  min-width: 400px;
-  height: 140px;
+  min-width: 500px;
+  height: 160px;
   @include base.box-shadow;
 
   &__thumbnail {
     height: 100%;
 
     img { 
-      max-height: 100%;
+      aspect-ratio: 16 / 9;
+      height: 100%;
     }
   }
 
@@ -68,10 +68,18 @@ const props = defineProps({
   }
 }
 
-@media (max-width: 481px) {
-  .article__text-section__title {
-    font-size: 2rem;
+@media (max-width: 640px) {
+  .article {
+    flex-direction: column;
+    min-width: 0;
+    width: 80vw;
+    height: fit-content;
+
+    &__thumbnail img {
+      width: 100%;
+    }
   }
 }
+
 
 </style>

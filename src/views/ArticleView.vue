@@ -56,6 +56,7 @@ onBeforeRouteUpdate((to, from) => {
   margin-top: 60px;
   min-height: 100vh;
   width: 100%;
+  gap: 20px;
 
   &__aside {
     margin: 0 10px;
@@ -66,14 +67,19 @@ onBeforeRouteUpdate((to, from) => {
     }
 
     &__article-container {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+      // display: flex;
+      // flex-direction: column;
+      // gap: 10px;
+      display: grid;
+      grid-template-columns: auto-fill;
+      margin-left: 20px;
+      margin-right: 20px;
+      gap: 20px;
     }
   }
 }
 
-@media (max-width: 1400px) {
+@media (max-width: 1280px) {
   .article-view {
     flex-direction: column;
     align-items: center;
@@ -91,9 +97,9 @@ onBeforeRouteUpdate((to, from) => {
       }
 
       &__article-container {
-        display: grid;
         justify-content: center;
-        grid-template-columns: repeat(auto-fit, 450px);
+        grid-template-columns: repeat(auto-fit, 1fr);
+        // grid-template-rows: repeat(3, auto);
       }
     }
   }

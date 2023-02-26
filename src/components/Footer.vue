@@ -10,7 +10,6 @@
 @use '@/assets/base';
 
 .footer {
-  margin-top: 0;
   display: flex;
   height: 60px;
   width: 100%;
@@ -18,6 +17,12 @@
   color: #fff;
   @include base.justify-align;
   @include base.box-shadow;
+}
+
+@media (max-width: 640px) {
+  .footer {
+    font-size: 4vw;
+  }
 }
 
 </style>

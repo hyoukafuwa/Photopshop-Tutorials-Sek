@@ -40,13 +40,15 @@ const props = defineProps({
 @use '@/assets/base';
 
 .article {
-  width: 450px;
-  height: 410px;
+  min-height: fit-content;
   @include base.box-shadow;
 
   &__thumbnail {
     // this makes the image adjust to it's container's size
-    img { max-width: 100%; }
+    img { 
+      width: 100%; 
+      aspect-ratio: 16 / 9;
+    }
   }
 
   &__text-section {
@@ -72,6 +74,13 @@ const props = defineProps({
         color: base.$hover-blue;
       }
     }
+  }
+}
+
+@media (max-width: 640px) {
+  .article {
+    max-width: 80vw;
+    justify-self: center;
   }
 }
 

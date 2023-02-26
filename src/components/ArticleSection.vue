@@ -52,10 +52,12 @@ function handleDeletinArticle() {
 
 .article-section {
   width: 50vw;
+  // min-width: 700px;
   @include base.box-shadow;
   display: grid;
   grid-template-columns: 1fr repeat(2, minmax(150px, 300px)) 1fr;
-  grid-template-rows: 80px 40vh 50px 400px;
+  grid-template-rows: repeat(3, auto) minmax(200px, 1fr);
+  gap: 20px;
 
   &__title {
     font-size: 2rem;
@@ -75,7 +77,8 @@ function handleDeletinArticle() {
     grid-column: 2 / 4;
 
     iframe {
-      height: 100%;
+      aspect-ratio: 16 / 9;
+      // height: 100%;
       width: 100%;
     }
   }
@@ -97,11 +100,10 @@ function handleDeletinArticle() {
     grid-column: 2 / 4;
     padding-right: 20px;
     padding-left: 20px;
-    padding-top: 40px;
   }
 }
 
-@media (max-width: 1400px) {
+@media (max-width: 1280px) {
   .article-section {
     width: 100vw;
 
