@@ -22,7 +22,7 @@ async function handleAddArticles() {
   for (const val of Object.values(articleData)) {
     if (!val) return alert('Eines der Felder ist leer')
   }
-  
+
   methods.addArticles(articleData.title, articleData.youTubeUrl, articleData.description)
 
   // reset all fields
@@ -63,6 +63,8 @@ async function handleAddArticles() {
   min-height: 100vh;
   gap: 100px;
   margin-top: 50px;
+  margin-left: 20px;
+  margin-right: 20px;
   display: flex;
   flex-direction: row;
   @include base.justify-align(center, flex-start);
@@ -103,6 +105,10 @@ async function handleAddArticles() {
       height: 40px;
     }
   }
+
+  &__preview {
+    width: 800px;
+  }
 }
 
 @media (max-width: 1024px) {
@@ -110,6 +116,10 @@ async function handleAddArticles() {
     flex-direction: column;
     align-items: center;
     margin-bottom: 100px;
+
+    &__preview {
+      width: inherit;
+    }
   }
 }
 
