@@ -11,11 +11,4 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   },
-  server: {
-    watch: {
-      usePolling: true,
-    },
-    strictPort: true,
-    port: 5173, // you can replace this port with any port
-  }
 })
