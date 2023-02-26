@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
 import { state } from '../state/state'
 import { useRoute, onBeforeRouteUpdate } from 'vue-router'
 
@@ -67,9 +67,6 @@ onBeforeRouteUpdate((to, from) => {
     }
 
     &__article-container {
-      // display: flex;
-      // flex-direction: column;
-      // gap: 10px;
       display: grid;
       grid-template-columns: auto-fill;
       margin-left: 20px;
@@ -99,7 +96,6 @@ onBeforeRouteUpdate((to, from) => {
       &__article-container {
         justify-content: center;
         grid-template-columns: repeat(auto-fit, 1fr);
-        // grid-template-rows: repeat(3, auto);
       }
     }
   }
