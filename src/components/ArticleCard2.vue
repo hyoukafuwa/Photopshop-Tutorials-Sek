@@ -51,7 +51,7 @@ const props = defineProps({
     &__date {
       font-size: 0.7rem;
       opacity: 0.6;
-      font-family: base.$dateFont;
+      font-family: base.$date-font;
     }
 
     &__title {

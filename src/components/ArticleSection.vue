@@ -68,7 +68,7 @@ function handleDeletinArticle() {
     grid-column: 2 / 3;
     grid-row: 3 / 4;
     align-self: center;
-    font-family: base.$dateFont;
+    font-family: base.$date-font;
     font-size: 0.9rem;
     opacity: 0.8;
   }
