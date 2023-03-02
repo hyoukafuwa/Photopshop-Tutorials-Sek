@@ -5,8 +5,8 @@ $blue: #2563eb;
 $grey: #cbd5e1;
 $hover-red: #b91c1c;
 $red: #ef4444;
-$font: 'Playfair Display', serif;
-$dateFont: 'Roboto', sans-serif;
+$font: 'Fira Sans', sans-serif;
+$date-font: 'Roboto', sans-serif;
 
 // mixins
 @mixin remove-anchor-styling($color: #000) {
